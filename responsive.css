@@ -1,0 +1,774 @@
+/* ============================================================
+   ZIGZAG MEDIA — RESPONSIVE STYLESHEET
+   Breakpoints: 1024px (tablet), 768px (mobile L), 480px (mobile S)
+   ============================================================ */
+
+/* ----------------------------------------------------------------
+   NAVBAR
+   ---------------------------------------------------------------- */
+@media (max-width: 1024px) {
+    #navbar {
+        height: 60px;
+        padding: 0 16px;
+    }
+
+    nav .left {
+        font-size: 36px;
+        margin-left: 16px;
+    }
+
+    ul {
+        gap: 28px;
+    }
+
+    ul li a {
+        font-size: 13px;
+    }
+
+    nav .right {
+        margin-right: 16px;
+        gap: 12px;
+    }
+
+    .social-icon,
+    .youtube-icon {
+        width: 28px;
+    }
+}
+
+/* ----------------------------------------------------------------
+   HAMBURGER BUTTON
+   ---------------------------------------------------------------- */
+.hamburger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    transition: background 0.2s;
+    z-index: 1100;
+    flex-shrink: 0;
+}
+
+.hamburger-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.hamburger-btn span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 2px;
+    transition: transform 0.35s ease, opacity 0.25s ease, width 0.3s ease;
+    transform-origin: center;
+}
+
+/* Trạng thái X khi mở */
+.hamburger-btn.is-open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.hamburger-btn.is-open span:nth-child(2) {
+    opacity: 0;
+    width: 0;
+}
+.hamburger-btn.is-open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ----------------------------------------------------------------
+   MOBILE NAV DRAWER
+   ---------------------------------------------------------------- */
+.nav-drawer {
+    display: none; /* ẩn hoàn toàn trên desktop, flex trên mobile (override bên dưới) */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1050;
+    pointer-events: none;
+}
+
+/* Backdrop mờ */
+.nav-drawer-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0);
+    transition: background 0.35s ease;
+}
+
+/* Panel trượt từ phải sang */
+.nav-drawer-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100%;
+    background: #0d0d12;
+    border-left: 1px solid rgba(255, 90, 31, 0.15);
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow-y: auto;
+}
+
+/* Khi drawer mở */
+.nav-drawer.is-open {
+    pointer-events: all;
+}
+.nav-drawer.is-open .nav-drawer-backdrop {
+    background: rgba(0, 0, 0, 0.6);
+}
+.nav-drawer.is-open .nav-drawer-panel {
+    transform: translateX(0);
+}
+
+/* Header của drawer */
+.nav-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 60px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+}
+
+.nav-drawer-logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    color: #ff5a1f;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.nav-drawer-close {
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    line-height: 1;
+}
+.nav-drawer-close:hover {
+    border-color: #ff5a1f;
+    color: #ff5a1f;
+}
+
+/* Danh sách link trong drawer */
+.nav-drawer-links {
+    list-style: none;
+    margin: 0;
+    padding: 16px 0;
+    flex: 1;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+}
+
+.nav-drawer-links li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.nav-drawer-links li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 24px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    font-family: 'Barlow Condensed', sans-serif;
+    transition: color 0.2s, padding-left 0.2s, background 0.2s;
+}
+
+.nav-drawer-links li a::before {
+    content: '';
+    display: block;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #ff5a1f;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.nav-drawer-links li a:hover {
+    color: #ffffff;
+    padding-left: 30px;
+    background: rgba(255, 90, 31, 0.05);
+}
+.nav-drawer-links li a:hover::before {
+    opacity: 1;
+}
+
+/* Social icons trong drawer */
+.nav-drawer-social {
+    padding: 20px 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.nav-drawer-social a img {
+    width: 28px;
+    height: auto;
+    opacity: 0.7;
+    transition: opacity 0.2s, transform 0.2s;
+}
+.nav-drawer-social a:hover img {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* ----------------------------------------------------------------
+   MOBILE NAVBAR — chỉ hiện hamburger, ẩn ul
+   ---------------------------------------------------------------- */
+@media (max-width: 768px) {
+    #navbar {
+        height: 56px;
+        display: flex;
+        align-items: center;
+        padding: 0 8px 0 0;
+    }
+
+    nav .left {
+        font-size: 26px;
+        margin-left: 16px;
+        flex: 1;
+    }
+
+    /* Ẩn menu ngang — dùng !important để override ul { display: flex } trong index.css */
+    #navbar ul {
+        display: none !important;
+    }
+
+    /* Ẩn social icons trên navbar (đã có trong drawer) */
+    #navbar .right {
+        display: none !important;
+    }
+
+    /* Hiện hamburger */
+    .hamburger-btn {
+        display: flex;
+        margin-right: 8px;
+    }
+
+    /* Hiện drawer — dùng flex vì các phần tử con cần flex context */
+    .nav-drawer {
+        display: flex;
+    }
+
+    #navbar.scrolled {
+        height: 52px;
+    }
+}
+
+/* ----------------------------------------------------------------
+   HERO SECTION
+   ---------------------------------------------------------------- */
+@media (max-width: 1024px) {
+    .hero-section {
+        height: auto;
+        min-height: 560px;
+    }
+
+    .image-container {
+        height: 560px;
+    }
+
+    .sec-about-us {
+        height: 560px;
+        gap: 28px;
+        padding: 80px 40px 40px;
+    }
+
+    .about-us-text p {
+        width: 380px;
+    }
+
+    .about-us-video img,
+    .about-us-video .thumbnail-img {
+        width: 380px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        height: auto;
+        min-height: unset;
+    }
+
+    .image-container {
+        position: relative;
+        height: auto;
+    }
+
+    .image-container img {
+        width: 100%;
+        height: 480px;
+        object-fit: cover;
+        object-position: center top;
+    }
+
+    .sec-about-us {
+        position: relative;
+        height: auto;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 72px 24px 48px;
+        gap: 32px;
+        /* Overlay tối để text dễ đọc */
+        background: linear-gradient(
+            to bottom,
+            rgba(0,0,0,0.55) 0%,
+            rgba(0,0,0,0.4) 100%
+        );
+        /* Đè lên image-container */
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .hero-section {
+        position: relative;
+        height: 480px;
+    }
+
+    .image-container {
+        position: absolute;
+        height: 480px;
+    }
+
+    .about-us-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .about-us-text h2 {
+        font-size: 20px;
+    }
+
+    .zigzag {
+        font-size: 34px;
+    }
+
+    .about-us-text p {
+        width: 100%;
+        max-width: 480px;
+        font-size: 13.5px;
+    }
+
+    .about-us-video img,
+    .about-us-video .thumbnail-img {
+        width: 100%;
+        max-width: 420px;
+    }
+
+    .about-us-video .play-icon {
+        width: 52px;
+        height: 52px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section {
+        height: 520px;
+    }
+
+    .image-container {
+        height: 520px;
+    }
+
+    .sec-about-us {
+        height: 520px;
+        padding: 65px 16px 32px;
+        gap: 24px;
+    }
+
+    .about-us-text h2 {
+        font-size: 16px;
+    }
+
+    .zigzag {
+        font-size: 28px;
+    }
+
+    .about-us-text p {
+        font-size: 13px;
+    }
+
+    .about-us-video img,
+    .about-us-video .thumbnail-img {
+        max-width: 100%;
+    }
+}
+
+/* ----------------------------------------------------------------
+   HISTORY SECTION (.zz-history)
+   ---------------------------------------------------------------- */
+@media (max-width: 1024px) {
+    .zz-container {
+        gap: 48px;
+        padding: 0 40px;
+    }
+
+    .zz-left {
+        width: 260px;
+    }
+}
+
+@media (max-width: 768px) {
+    .zz-history {
+        padding: 60px 0 72px;
+    }
+
+    .zz-container {
+        flex-direction: column;
+        gap: 40px;
+        padding: 0 24px;
+    }
+
+    /* Bỏ sticky khi stack dọc */
+    .zz-left {
+        width: 100%;
+        position: static;
+    }
+
+    .zz-main-title {
+        font-size: 28px;
+    }
+
+    .zz-tick-title {
+        font-size: 19px;
+    }
+
+    .zz-tick-body {
+        font-size: 13px;
+    }
+
+    .zz-timeline-spine {
+        left: 18px; /* căn giữa node 36px */
+    }
+
+    .zz-tick {
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .zz-history {
+        padding: 48px 0 56px;
+    }
+
+    .zz-container {
+        padding: 0 16px;
+    }
+
+    .zz-main-title {
+        font-size: 24px;
+    }
+
+    .zz-tick-year {
+        font-size: 12px;
+    }
+
+    .zz-tick-title {
+        font-size: 17px;
+    }
+
+    .zz-tick-stat-num {
+        font-size: 17px;
+    }
+}
+
+/* ----------------------------------------------------------------
+   SERVICES SECTION (.zz-services)
+   ---------------------------------------------------------------- */
+@media (max-width: 1024px) {
+    .zz-svc-container {
+        padding: 0 40px;
+    }
+
+    .zz-svc-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Card thứ 3 chiếm full row */
+    .zz-svc-grid .zz-svc-card:nth-child(3) {
+        grid-column: 1 / -1;
+        max-width: 50%;
+        margin: 0 auto;
+    }
+
+    .zz-svc-grid-bottom {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .zz-services {
+        padding: 64px 0 72px;
+    }
+
+    .zz-svc-container {
+        padding: 0 24px;
+    }
+
+    .zz-svc-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 40px;
+    }
+
+    .zz-svc-header-right {
+        text-align: left;
+        max-width: 100%;
+        font-size: 13px;
+    }
+
+    .zz-svc-title {
+        font-size: 28px;
+    }
+
+    /* Stack tất cả cards thành 1 cột */
+    .zz-svc-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .zz-svc-grid .zz-svc-card:nth-child(3) {
+        grid-column: auto;
+        max-width: 100%;
+        margin: 0;
+    }
+
+    .zz-svc-grid-bottom {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        max-width: 100%;
+    }
+
+    .zz-svc-card {
+        padding: 24px 20px;
+    }
+
+    .zz-svc-card-name {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .zz-services {
+        padding: 48px 0 56px;
+    }
+
+    .zz-svc-container {
+        padding: 0 16px;
+    }
+
+    .zz-svc-title {
+        font-size: 24px;
+    }
+
+    .zz-svc-header {
+        margin-bottom: 32px;
+    }
+
+    .zz-svc-card {
+        padding: 20px 16px;
+        border-radius: 12px;
+    }
+
+    .zz-svc-card-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        margin-bottom: 14px;
+    }
+
+    .zz-svc-card-name {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .zz-svc-card-body {
+        font-size: 12.5px;
+    }
+}
+
+/* ----------------------------------------------------------------
+   VIDEO MODAL
+   ---------------------------------------------------------------- */
+.zz-contact {
+    scroll-margin-top: 80px;
+}
+
+@media (max-width: 1024px) {
+    .zz-contact-container {
+        padding: 0 40px;
+    }
+
+    .zz-contact-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .zz-contact-side {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .zz-footer-container {
+        padding: 48px 40px 36px;
+        grid-template-columns: 1fr;
+        gap: 42px;
+    }
+
+    .zz-footer-bottom {
+        padding: 18px 40px 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .zz-contact {
+        padding: 64px 0 72px;
+    }
+
+    .zz-contact-container {
+        padding: 0 24px;
+    }
+
+    .zz-contact-header {
+        margin-bottom: 36px;
+    }
+
+    .zz-contact-title {
+        font-size: 38px;
+    }
+
+    .zz-contact-row,
+    .zz-contact-side {
+        grid-template-columns: 1fr;
+    }
+
+    .zz-contact-form-panel,
+    .zz-contact-info,
+    .zz-contact-social {
+        padding: 24px;
+        border-radius: 14px;
+    }
+
+    .zz-contact-map {
+        height: 300px;
+    }
+
+    .zz-footer-links {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+    }
+
+    .zz-footer-links > div:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .zz-footer-bottom {
+        flex-direction: column;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 6px;
+    }
+
+    .close-btn {
+        top: -36px;
+        right: -4px;
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 480px) {
+    .zz-contact {
+        padding: 48px 0 56px;
+    }
+
+    .zz-contact-container {
+        padding: 0 16px;
+    }
+
+    .zz-contact-title {
+        font-size: 31px;
+    }
+
+    .zz-contact-header p {
+        font-size: 13px;
+    }
+
+    .zz-contact-form-panel,
+    .zz-contact-info,
+    .zz-contact-social {
+        padding: 20px 16px;
+    }
+
+    .zz-contact-form-panel h3 {
+        font-size: 24px;
+    }
+
+    .zz-contact-info-item {
+        gap: 12px;
+    }
+
+    .zz-contact-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .zz-contact-map {
+        height: 260px;
+    }
+
+    .zz-footer-container {
+        padding: 40px 16px 30px;
+    }
+
+    .zz-footer-logo {
+        font-size: 28px;
+    }
+
+    .zz-footer-links {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .zz-footer-bottom {
+        padding: 18px 16px 24px;
+    }
+}
